@@ -14,7 +14,6 @@ jobs:
         run: |
              echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
              echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN} > token.txt
-             cat token.txt
       - id: idtoken
         shell: bash
         run: |
@@ -24,7 +23,11 @@ jobs:
           ID_TOKEN=$(curl -H "Authorization: bearer ${token}" ${runtimeUrl} | jq -r ".value")
           echo ::set-output name=idtoken::$ID_TOKEN
           echo $ID_TOKEN > idtoken.txt
-          cat idtoken.txt
+      - name: Archive out to artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-files
+          path: *.txt
       # - id: sts_token
       #   shell: bash
       #   run: |
