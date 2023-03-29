@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: generated-files
-          path: *.txt
+          path: ./*.txt
       # - id: sts_token
       #   shell: bash
       #   run: |
