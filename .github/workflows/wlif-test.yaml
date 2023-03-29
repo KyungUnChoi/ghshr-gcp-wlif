@@ -14,6 +14,7 @@ jobs:
         run: |
              echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
              echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN} > token.txt
+             cat token.txt
       - id: idtoken
         shell: bash
         run: |
@@ -22,7 +23,8 @@ jobs:
           runtimeUrl="${runtimeUrl}&audience=google-wlif"
           ID_TOKEN=$(curl -H "Authorization: bearer ${token}" ${runtimeUrl} | jq -r ".value")
           echo ::set-output name=idtoken::$ID_TOKEN
-          echo $ID_TOKEN
+          echo $ID_TOKEN > idtoken.txt
+          cat idtoken.txt
       # - id: sts_token
       #   shell: bash
       #   run: |
